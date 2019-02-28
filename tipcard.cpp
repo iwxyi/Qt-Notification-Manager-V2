@@ -87,3 +87,15 @@ void TipCard::paintEvent(QPaintEvent *event)
     painter.fillPath(path_back, QBrush(Qt::yellow));
     return QWidget::paintEvent(event);
 }
+
+void TipCard::enterEvent(QEvent *)
+{
+    if (is_closing) return ;
+
+    close_timer->stop();
+}
+
+void TipCard::leaveEvent(QEvent *)
+{
+    close_timer->start(1000);
+}

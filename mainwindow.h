@@ -18,7 +18,7 @@ public:
     ~MainWindow();
 
 protected:
-    void resizeEvent(QResizeEvent* e);
+    void resizeEvent(QResizeEvent*);
 
 private slots:
     void on_pushButton_clicked();
