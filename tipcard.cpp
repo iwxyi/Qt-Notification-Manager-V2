@@ -7,13 +7,9 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
     title_label = new QLabel(title, this);
     content_label = new QLabel(content, this);
 
-    QPixmap* settings_pixmap = new QPixmap(":/icons/settings");
-    //QIcon* settings_icon = new QIcon(*settings_pixmap);
-    //settings_button = new QPushButton(*settings_icon, "settings", this);
-
-    QPixmap* close_pixmap = new QPixmap(":/icons/close");
+    QPixmap* close_pixmap = new QPixmap(":/icons/hide_right");
     QIcon* close_icon = new QIcon(*close_pixmap);
-    close_button = new QPushButton(*close_icon, "close", this);
+    close_button = new QPushButton(*close_icon, "", this);
 
     operator1_button = NULL;
     operator2_button = NULL;
@@ -22,7 +18,6 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
     QVBoxLayout* main_vlayout = new QVBoxLayout(this);
     QHBoxLayout* title_hlayout = new QHBoxLayout;
     title_hlayout->addWidget(title_label);
-    //title_hlayout->addWidget(settings_button);
     title_hlayout->addWidget(close_button);
     main_vlayout->addLayout(title_hlayout);
     main_vlayout->addWidget(content_label);
@@ -48,60 +43,34 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b1, Q
 void TipCard::initCard()
 {
     setMinimumSize(10, 50);
-    //move(0,0);
     my_size = this->size();
+    is_closing = false;
 
     // 布局
-    //settings_button->setFixedSize(32, 32);
     close_button->setFixedSize(32, 32);
 
     if (parentWidget() != NULL)
         setFixedWidth(parentWidget()->width());
 
     // 事件
-    connect(close_button, QPushButton::clicked, [=]{
-        emit signalClosed(this);
-        //this->close();
-    });
-    /*connect(settings_button, QPushButton::clicked, [=]{
-        ;
-    });*/
+    connect(close_button, SIGNAL(clicked(bool)), this, SLOT(slotClosed()));
 
     // 定时器
     close_timer = new QTimer(this);
-    close_timer->setInterval(3000);
     close_timer->setSingleShot(true);
-    connect(close_timer, QTimer::timeout, [=]{
-        emit signalClosed(this);
-        //this->close();
-    });
-    close_timer->start();
-
+    connect(close_timer, SIGNAL(timeout()), this, SLOT(slotClosed()));
+    close_timer->start(3000);
 }
 
-void TipCard::showAnimation(QPoint aim_point)
+void TipCard::slotClosed()
 {
-
-}
-
-void TipCard::downAnimation(QPoint aim_point, int delay)
-{
-
-}
-
-void TipCard::upAnimation(QPoint aim_point, int delay)
-{
-
-}
-
-void TipCard::closeAnimation(QPoint aim_point)
-{
-
+    if (is_closing) return ;
+    emit signalClosed(this);
+    is_closing = true;
 }
 
 /**
- * 可能还在显示动画中，所以要一开始就要保存一个固定的大小变量
- * @return
+ * 一开始就要保存一个固定的大小变量
  */
 QSize TipCard::getSize()
 {

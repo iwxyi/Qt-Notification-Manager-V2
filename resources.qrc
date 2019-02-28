@@ -1,1 +1,5 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="hide_right">resources/hide_right.png</file>
+    </qresource>
+</RCC>

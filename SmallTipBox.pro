@@ -22,3 +22,6 @@ HEADERS  += mainwindow.h \
     tipwidget.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    resources.qrc

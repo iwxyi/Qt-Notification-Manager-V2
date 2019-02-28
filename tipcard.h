@@ -29,11 +29,6 @@ public:
     TipCard(QWidget *parent, QString k, QString t, QString c, QString b);
     TipCard(QWidget *parent, QString k, QString t, QString c, QString b1, QString b2);
 
-    void showAnimation(QPoint aim_point);
-    void downAnimation(QPoint aim_point, int delay);
-    void upAnimation(QPoint aim_point, int delay);
-    void closeAnimation(QPoint aim_point);
-
     QSize getSize();
 
 protected:
@@ -47,7 +42,9 @@ signals:
     void signalButton1Clicked(QString key);
     void signalButton2Clicked(QString key);
 
+
 public slots:
+    void slotClosed();
 
 private:
     QString key;
@@ -60,12 +57,13 @@ private:
     QLabel* content_label;
     QPushButton* operator1_button;
     QPushButton* operator2_button;
-    QPushButton* settings_button;
     QPushButton* close_button;
     QTimer* close_timer;
 
     QPropertyAnimation* animation;
     QSize my_size; // 自己固定的大小，以后都不能变！（直到删除）
+
+    bool is_closing;
 };
 
 #endif // TIPBOXCARD_H
