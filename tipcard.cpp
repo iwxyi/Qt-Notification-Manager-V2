@@ -6,12 +6,15 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
     // 初始化控件
     title_label = new QLabel(title, this);
     content_label = new QLabel(content, this);
+
     QPixmap* settings_pixmap = new QPixmap(":/icons/settings");
-    QIcon* settings_icon = new QIcon(*settings_pixmap);
-    settings_button = new QPushButton(*settings_icon, "settings", this);
+    //QIcon* settings_icon = new QIcon(*settings_pixmap);
+    //settings_button = new QPushButton(*settings_icon, "settings", this);
+
     QPixmap* close_pixmap = new QPixmap(":/icons/close");
     QIcon* close_icon = new QIcon(*close_pixmap);
     close_button = new QPushButton(*close_icon, "close", this);
+
     operator1_button = NULL;
     operator2_button = NULL;
 
@@ -19,7 +22,7 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
     QVBoxLayout* main_vlayout = new QVBoxLayout(this);
     QHBoxLayout* title_hlayout = new QHBoxLayout;
     title_hlayout->addWidget(title_label);
-    title_hlayout->addWidget(settings_button);
+    //title_hlayout->addWidget(settings_button);
     title_hlayout->addWidget(close_button);
     main_vlayout->addLayout(title_hlayout);
     main_vlayout->addWidget(content_label);
@@ -49,11 +52,20 @@ void TipCard::initCard()
     my_size = this->size();
 
     // 布局
-    settings_button->setFixedSize(32, 32);
+    //settings_button->setFixedSize(32, 32);
     close_button->setFixedSize(32, 32);
 
     if (parentWidget() != NULL)
         setFixedWidth(parentWidget()->width());
+
+    // 事件
+    connect(close_button, QPushButton::clicked, [=]{
+        emit signalClosed(this);
+        //this->close();
+    });
+    /*connect(settings_button, QPushButton::clicked, [=]{
+        ;
+    });*/
 
     // 定时器
     close_timer = new QTimer(this);
@@ -64,15 +76,6 @@ void TipCard::initCard()
         //this->close();
     });
     close_timer->start();
-
-    // 事件
-    connect(close_button, QPushButton::clicked, [=]{
-        emit signalClosed(this);
-        //this->close();
-    });
-    connect(settings_button, QPushButton::clicked, [=]{
-        ;
-    });
 
 }
 

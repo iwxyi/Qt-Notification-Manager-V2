@@ -17,11 +17,11 @@
 #define MARGIN_PARENT_BOTTOM 10
 #define CARD_FIXED_WIDTH 200
 
-class TipWidget : public QWidget
+class TipBox : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TipWidget(QWidget *parent);
+    explicit TipBox(QWidget *parent);
     TipCard* createTipCard(QString key, QString title, QString content);
     TipCard* createTipCard(QString key, QString title, QString content, QString btn1);
     TipCard* createTipCard(QString key, QString title, QString content, QString btn1, QString btn2);
@@ -31,8 +31,7 @@ protected:
     void paintEvent(QPaintEvent* event);
 
 private:
-    void setAddedAnimation();
-    int getCardHeight(int index);
+    void addCard(TipCard *card);
 
 signals:
     void signalCardClosed(QString key);
@@ -40,7 +39,6 @@ signals:
 public slots:
     void slotCardClosed(TipCard *card);
     void adjustPosition();
-    void adjustHeight();
 
 private:
     QList<TipCard*> cards;

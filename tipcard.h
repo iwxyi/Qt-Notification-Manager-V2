@@ -18,12 +18,12 @@
 #include <QPropertyAnimation>
 #include <QDebug>
 
-class TipWidget;
+class TipBox;
 
 class TipCard : public QWidget
 {
     Q_OBJECT
-    friend class TipWidget;
+    friend class TipBox;
 public:
     TipCard(QWidget *parent, QString k, QString t, QString c);
     TipCard(QWidget *parent, QString k, QString t, QString c, QString b);

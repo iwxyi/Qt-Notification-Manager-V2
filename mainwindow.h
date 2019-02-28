@@ -25,7 +25,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    TipWidget* tip_widget;
+    TipBox* tip_widget;
 };
 
 #endif // MAINWINDOW_H

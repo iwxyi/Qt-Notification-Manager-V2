@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    tip_widget = new TipWidget(this);
+    tip_widget = new TipBox(this);
 
 }
 
