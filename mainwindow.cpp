@@ -23,6 +23,5 @@ void MainWindow::resizeEvent(QResizeEvent *)
 
 void MainWindow::on_pushButton_clicked()
 {
-    qDebug() << ("create card");
     tip_widget->createTipCard("key", "title", "content");
 }
