@@ -1,7 +1,7 @@
 #include "tipcard.h"
 
 TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
-    : QWidget(parent), key(k), title(t), content(c)
+    : ThreeDimenButton(parent), key(k), title(t), content(c)
 {
     // 初始化控件
     title_label = new QLabel(title, this);
@@ -9,10 +9,10 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
 
     QPixmap* close_pixmap = new QPixmap(":/icons/hide_right");
     QIcon* close_icon = new QIcon(*close_pixmap);
-    close_button = new QPushButton(*close_icon, "", this);
+    close_button = new InteractiveButtonBase(*close_icon, this);
 
-    operator1_button = NULL;
-    operator2_button = NULL;
+    operator1_button = nullptr;
+    operator2_button = nullptr;
 
     // 初始化布局
     QVBoxLayout* main_vlayout = new QVBoxLayout(this);
@@ -27,14 +27,14 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
 }
 
 TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b)
-    : QWidget(parent), key(k), title(t), content(c), btn1_title(b)
+    : ThreeDimenButton(parent), key(k), title(t), content(c), btn1_title(b)
 {
 
     initCard();
 }
 
 TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b1, QString b2)
-    : QWidget(parent), key(k), title(t), content(c), btn1_title(b1), btn2_title(b2)
+    : ThreeDimenButton(parent), key(k), title(t), content(c), btn1_title(b1), btn2_title(b2)
 {
 
     initCard();
@@ -49,7 +49,7 @@ void TipCard::initCard()
     // 布局
     close_button->setFixedSize(32, 32);
 
-    if (parentWidget() != NULL)
+    if (parentWidget() != nullptr)
         setFixedWidth(parentWidget()->width());
 
     // 事件

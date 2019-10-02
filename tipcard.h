@@ -17,10 +17,11 @@
 #include <QPainterPath>
 #include <QPropertyAnimation>
 #include <QDebug>
+#include "threedimenbutton.h"
 
 class TipBox;
 
-class TipCard : public QWidget
+class TipCard : public ThreeDimenButton
 {
     Q_OBJECT
     friend class TipBox;
@@ -57,9 +58,9 @@ private:
 
     QLabel* title_label;
     QLabel* content_label;
-    QPushButton* operator1_button;
-    QPushButton* operator2_button;
-    QPushButton* close_button;
+    InteractiveButtonBase* operator1_button;
+    InteractiveButtonBase* operator2_button;
+    InteractiveButtonBase* close_button;
     QTimer* close_timer;
 
     QPropertyAnimation* animation;
