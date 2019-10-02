@@ -51,7 +51,6 @@ void ThreeDimenButton::mouseReleaseEvent(QMouseEvent *event)
 void ThreeDimenButton::mouseMoveEvent(QMouseEvent *event)
 {
     bool is_in = inArea(event->pos());
-
     if (is_in && !in_circle)// 鼠标移入
     {
         in_circle = true;

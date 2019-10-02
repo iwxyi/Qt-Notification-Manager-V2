@@ -3,6 +3,8 @@
 TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
     : ThreeDimenButton(parent), key(k), title(t), content(c)
 {
+    setBgColor(Qt::yellow);
+
     // 初始化控件
     title_label = new QLabel(title, this);
     content_label = new QLabel(content, this);
@@ -15,13 +17,24 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
     operator2_button = nullptr;
 
     // 初始化布局
-    QVBoxLayout* main_vlayout = new QVBoxLayout(this);
-    QHBoxLayout* title_hlayout = new QHBoxLayout;
-    title_hlayout->addWidget(title_label);
-    title_hlayout->addWidget(close_button);
-    main_vlayout->addLayout(title_hlayout);
-    main_vlayout->addWidget(content_label);
-    setLayout(main_vlayout);
+    QHBoxLayout* margin_hlayout = new QHBoxLayout(this);
+    {
+        QVBoxLayout* main_vlayout = new QVBoxLayout;
+        QHBoxLayout* title_hlayout = new QHBoxLayout;
+        {
+            title_hlayout->setSpacing(0);
+            title_hlayout->addWidget(title_label);
+            title_hlayout->addWidget(close_button);
+        }
+        main_vlayout->setSpacing(0);
+        main_vlayout->addLayout(title_hlayout);
+        main_vlayout->addWidget(content_label);
+        margin_hlayout->addSpacing(aop_w*3);
+        margin_hlayout->addLayout(main_vlayout);
+        margin_hlayout->addSpacing(aop_w*3);
+//        margin_hlayout->setMargin(aop_h); // 避免到外面去
+    }
+    setLayout(margin_hlayout);
 
     initCard();
 }
@@ -42,7 +55,7 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b1, Q
 
 void TipCard::initCard()
 {
-    setMinimumSize(10, 50);
+    setMinimumSize(100, 50);
     my_size = this->size();
     is_closing = false;
 
@@ -79,23 +92,21 @@ QSize TipCard::getSize()
 
 void TipCard::paintEvent(QPaintEvent *event)
 {
-    QPainter painter(this);
-    QPainterPath path_back;
-    path_back.setFillRule(Qt::WindingFill);
-    path_back.addRoundedRect(QRect(0, 0, width(), height()), 3, 3);
-    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
-    painter.fillPath(path_back, QBrush(Qt::yellow));
-    return QWidget::paintEvent(event);
+    ThreeDimenButton::paintEvent(event);
 }
 
-void TipCard::enterEvent(QEvent *)
+void TipCard::enterEvent(QEvent *event)
 {
+    ThreeDimenButton::enterEvent(event);
+
     if (is_closing) return ;
 
     close_timer->stop();
 }
 
-void TipCard::leaveEvent(QEvent *)
+void TipCard::leaveEvent(QEvent *event)
 {
+    ThreeDimenButton::leaveEvent(event);
+
     close_timer->start(1000);
 }

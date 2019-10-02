@@ -122,6 +122,6 @@ void TipBox::paintEvent(QPaintEvent *event)
     path_back.setFillRule(Qt::WindingFill);
     path_back.addRoundedRect(QRect(0, 0, width(), height()), 3, 3);
     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
-    painter.fillPath(path_back, QBrush(Qt::red));
+//    painter.fillPath(path_back, QBrush(Qt::red));
     return QWidget::paintEvent(event);
 }
