@@ -41,7 +41,7 @@ void TipBox::addCard(TipCard* card)
     connect(card, SIGNAL(signalClosed(TipCard*)), this, SLOT(slotCardClosed(TipCard*)));
     card->show();
 
-    // 总体高度
+    // 通知卡片显示的高度
     QSize size = card->getSize();
     sum_height += size.height() + MARGIN_PARENT_BOTTOM;
     QRect box_aim(parentWidget()->width()-CARD_FIXED_WIDTH-MARGIN_PARENT_RIGHT,

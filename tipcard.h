@@ -17,6 +17,7 @@
 #include <QPainterPath>
 #include <QPropertyAnimation>
 #include <QDebug>
+#include <QtPrintSupport/QPrinter>
 #include "threedimenbutton.h"
 
 class TipBox;
@@ -25,6 +26,8 @@ class TipCard : public ThreeDimenButton
 {
     Q_OBJECT
     friend class TipBox;
+
+#define TIP_CARD_CONTENT_MARGIN 10
 public:
     TipCard(QWidget *parent, QString k, QString t, QString c);
     TipCard(QWidget *parent, QString k, QString t, QString c, QString b);
@@ -41,6 +44,10 @@ protected:
 
 private:
     void initCard();
+    void initSize();
+
+    template<typename T>
+    int getWidgetHeight(T* w);
 
 signals:
     void signalClosed(TipCard* card);

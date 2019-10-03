@@ -28,3 +28,8 @@ void MainWindow::on_pushButton_clicked()
 {
     tip_widget->createTipCard("key", "title", "content1\ncontent2\ncontent3");
 }
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    tip_widget->createTipCard("key", "title", "content1\ncontent2\ncontent3", "button1");
+}
