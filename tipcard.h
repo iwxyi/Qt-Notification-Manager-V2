@@ -47,7 +47,6 @@ signals:
     void signalButton1Clicked(QString key);
     void signalButton2Clicked(QString key);
 
-
 public slots:
     void slotClosed();
 
@@ -63,6 +62,7 @@ private:
     InteractiveButtonBase* operator1_button;
     InteractiveButtonBase* operator2_button;
     InteractiveButtonBase* close_button;
+    QHBoxLayout* btn_layout;
     QTimer* close_timer;
 
     QPropertyAnimation* animation;

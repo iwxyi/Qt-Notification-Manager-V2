@@ -17,46 +17,48 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
     operator2_button = nullptr;
 
     // 初始化布局
-    QHBoxLayout* margin_hlayout = new QHBoxLayout(this);
+//    QHBoxLayout* margin_hlayout = new QHBoxLayout(this);
     {
         QVBoxLayout* main_vlayout = new QVBoxLayout;
-        QHBoxLayout* title_hlayout = new QHBoxLayout;
         {
-            title_hlayout->setSpacing(0);
-            title_hlayout->addWidget(title_label);
-            title_hlayout->addWidget(close_button);
+            // 添加标题
+            QHBoxLayout* title_hlayout = new QHBoxLayout;
+            {
+                title_hlayout->setSpacing(0);
+                title_hlayout->addWidget(title_label);
+                title_hlayout->addWidget(close_button);
+            }
+            // 添加内容
+            main_vlayout->setSpacing(0);
+            main_vlayout->addLayout(title_hlayout);
+            main_vlayout->addWidget(content_label);
+            // 添加按钮
+            btn_layout = new QHBoxLayout;
+            main_vlayout->addLayout(btn_layout);
         }
-        main_vlayout->setSpacing(0);
-        main_vlayout->addLayout(title_hlayout);
-        main_vlayout->addWidget(content_label);
-        margin_hlayout->addSpacing(aop_w*3);
-        margin_hlayout->addLayout(main_vlayout);
-        margin_hlayout->addSpacing(aop_w*3);
-//        margin_hlayout->setMargin(aop_h); // 避免到外面去
+//        margin_hlayout->addSpacing(aop_w*3);
+//        margin_hlayout->addLayout(main_vlayout);
+//        margin_hlayout->addSpacing(aop_w*3);
+        setLayout(main_vlayout);
     }
-    setLayout(margin_hlayout);
+//    setLayout(margin_hlayout);
 
     initCard();
 }
 
 TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b)
-    : ThreeDimenButton(parent), key(k), title(t), content(c), btn1_title(b)
+    : TipCard(parent, k, t, c)
 {
-
-    initCard();
-
     // 添加一个按钮
-
+    btn_layout->addWidget(operator1_button = new InteractiveButtonBase(btn1_title = b, this));
 }
 
 TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b1, QString b2)
-    : ThreeDimenButton(parent), key(k), title(t), content(c), btn1_title(b1), btn2_title(b2)
+    : TipCard(parent, k, t, c, b1)
 {
 
-    initCard();
-
     // 添加两个按钮
-
+    btn_layout->addWidget(operator2_button = new InteractiveButtonBase(btn2_title = b2, this));
 }
 
 void TipCard::initCard()
@@ -98,7 +100,7 @@ QSize TipCard::getSize()
 
 void TipCard::startWaitingLeave()
 {
-    close_timer->start(has_leaved ? 1000 : 3000);
+    close_timer->start(has_leaved ? 1000 : 5000);
 }
 
 void TipCard::pauseWaitingLeave()

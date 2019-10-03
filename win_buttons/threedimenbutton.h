@@ -36,7 +36,7 @@ private:
 
 protected:
 	QGraphicsDropShadowEffect* shadow_effect;
-    bool in_circle;
+    bool in_rect;
     int aop_w, aop_h;
 };
 
