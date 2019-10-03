@@ -5,6 +5,7 @@ TipBox::TipBox(QWidget *parent) : QWidget(parent)
     setMinimumSize(200, 200);
 
     sum_height = MARGIN_PARENT_BOTTOM;
+    hovering = false;
 }
 
 TipCard *TipBox::createTipCard(QString key, QString title, QString content)
@@ -61,6 +62,12 @@ void TipBox::addCard(TipCard* card)
     card_ani->setEndValue(end_rect);
     card_ani->setDuration(300);
     card_ani->start();
+
+    // 判断位置，如果鼠标不在这上面，则开启定时消失
+    if (!hovering)
+    {
+        card->startWaitingLeave();
+    }
 }
 
 void TipBox::slotCardClosed(TipCard* removed_card)
@@ -111,8 +118,6 @@ void TipBox::slotCardClosed(TipCard* removed_card)
         //adjustHeight();
     });
     cards.removeOne(removed_card);
-
-
 }
 
 void TipBox::paintEvent(QPaintEvent *event)
@@ -124,4 +129,22 @@ void TipBox::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
 //    painter.fillPath(path_back, QBrush(Qt::red));
     return QWidget::paintEvent(event);
+}
+
+void TipBox::enterEvent(QEvent *event)
+{
+    hovering = true;
+    foreach (TipCard* card, cards) {
+        card->pauseWaitingLeave();
+    }
+    return QWidget::enterEvent(event);
+}
+
+void TipBox::leaveEvent(QEvent *event)
+{
+    hovering = false;
+    foreach (TipCard* card, cards) {
+        card->startWaitingLeave();
+    }
+    return QWidget::leaveEvent(event);
 }

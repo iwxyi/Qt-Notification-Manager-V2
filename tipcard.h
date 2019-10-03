@@ -31,6 +31,8 @@ public:
     TipCard(QWidget *parent, QString k, QString t, QString c, QString b1, QString b2);
 
     QSize getSize();
+    void startWaitingLeave();
+    void pauseWaitingLeave();
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -67,6 +69,7 @@ private:
     QSize my_size; // 自己固定的大小，以后都不能变！（直到删除）
 
     bool is_closing;
+    bool has_leaved;
 };
 
 #endif // TIPBOXCARD_H

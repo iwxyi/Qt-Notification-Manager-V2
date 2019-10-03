@@ -9,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     tip_widget = new TipBox(this);
 
+    QScreen* screen = QApplication::screenAt(QCursor::pos());
+    QRect rect = screen->availableGeometry();
+    move(rect.center()-QPoint(width()/2,height()/2));
 }
 
 MainWindow::~MainWindow()
@@ -23,5 +26,5 @@ void MainWindow::resizeEvent(QResizeEvent *)
 
 void MainWindow::on_pushButton_clicked()
 {
-    tip_widget->createTipCard("key", "title", "content");
+    tip_widget->createTipCard("key", "title", "content1\ncontent2\ncontent3");
 }

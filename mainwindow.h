@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QResizeEvent>
+#include <QScreen>
+#include <QDesktopServices>
 #include "tipwidget.h"
 
 namespace Ui {

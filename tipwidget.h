@@ -28,7 +28,9 @@ public:
 
 
 protected:
-    void paintEvent(QPaintEvent* event);
+    void paintEvent(QPaintEvent* event) override;
+    void enterEvent(QEvent *event) override;
+    void leaveEvent(QEvent *event) override;
 
 private:
     void addCard(TipCard *card);
@@ -37,13 +39,13 @@ signals:
     void signalCardClosed(QString key);
 
 public slots:
-    void slotCardClosed(TipCard *card);
+    void slotCardClosed(TipCard* card);
     void adjustPosition();
 
 private:
     QList<TipCard*> cards;
     int sum_height;
-
+    bool hovering;
 };
 
 #endif // TIPBOXWIDGET_H

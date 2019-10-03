@@ -44,6 +44,9 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b)
 {
 
     initCard();
+
+    // 添加一个按钮
+
 }
 
 TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b1, QString b2)
@@ -51,6 +54,9 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b1, Q
 {
 
     initCard();
+
+    // 添加两个按钮
+
 }
 
 void TipCard::initCard()
@@ -58,6 +64,7 @@ void TipCard::initCard()
     setMinimumSize(100, 50);
     my_size = this->size();
     is_closing = false;
+    has_leaved = false;
 
     // 布局
     close_button->setFixedSize(32, 32);
@@ -72,7 +79,6 @@ void TipCard::initCard()
     close_timer = new QTimer(this);
     close_timer->setSingleShot(true);
     connect(close_timer, SIGNAL(timeout()), this, SLOT(slotClosed()));
-    close_timer->start(3000);
 }
 
 void TipCard::slotClosed()
@@ -88,6 +94,16 @@ void TipCard::slotClosed()
 QSize TipCard::getSize()
 {
     return my_size;
+}
+
+void TipCard::startWaitingLeave()
+{
+    close_timer->start(has_leaved ? 1000 : 3000);
+}
+
+void TipCard::pauseWaitingLeave()
+{
+    close_timer->stop();
 }
 
 void TipCard::paintEvent(QPaintEvent *event)
@@ -108,5 +124,5 @@ void TipCard::leaveEvent(QEvent *event)
 {
     ThreeDimenButton::leaveEvent(event);
 
-    close_timer->start(1000);
+    has_leaved = true;
 }
