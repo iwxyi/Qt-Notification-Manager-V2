@@ -48,6 +48,8 @@ private:
     template<typename T>
     int getWidgetHeight(T* w);
 
+    QString colorToCss(QColor c);
+
 signals:
     void signalClosed(TipCard* card);
     void signalButton1Clicked(QString key);

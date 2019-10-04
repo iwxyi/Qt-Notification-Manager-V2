@@ -44,9 +44,13 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
     }
     setLayout(margin_hlayout);
 
+    // 样式
+    QFont bold_font = title_label->font();
+    bold_font.setBold(true);
+    bold_font.setPointSize(bold_font.pointSize() * 1.2);
+    title_label->setFont(bold_font);
+
     // 高度
-//    title_label->setStyleSheet("background-color: red;");
-//    content_label->setStyleSheet("background-color:green;");
     title_label->setFixedHeight(getWidgetHeight(title_label));
     content_label->setFixedHeight(getWidgetHeight(content_label));
     int height = title_label->height() + content_label->height() + aop_h*4 + TIP_CARD_CONTENT_MARGIN*2;
@@ -113,12 +117,17 @@ void TipCard::setBgColor(QColor c)
 
 void TipCard::setFontColor(QColor c)
 {
-
+    QString color_qss = "color:" + colorToCss(c) + ";";
+    title_label->setStyleSheet(color_qss);
+    content_label->setStyleSheet(color_qss);
 }
 
 void TipCard::setBtnColor(QColor c)
 {
-
+    if (operator1_button != nullptr)
+        operator1_button->setTextColor(c);
+    if (operator2_button != nullptr)
+        operator2_button->setTextColor(c);
 }
 
 void TipCard::enterEvent(QEvent *event)
@@ -135,6 +144,14 @@ void TipCard::leaveEvent(QEvent *event)
     ThreeDimenButton::leaveEvent(event);
 
     has_leaved = true;
+}
+
+QString TipCard::colorToCss(QColor c)
+{
+    if (c.alpha() == 255)
+        return QString("rgb(%1, %2, %3)").arg(c.red()).arg(c.green()).arg(c.blue());
+    else
+        return QString("rgb(%1, %2, %3, %4)").arg(c.red()).arg(c.green()).arg(c.blue()).arg(c.alpha());
 }
 
 template<typename T>
