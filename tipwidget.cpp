@@ -1,10 +1,13 @@
 #include "tipwidget.h"
 
-TipBox::TipBox(QWidget *parent) : QWidget(parent)
+TipBox::TipBox(QWidget *parent) : QWidget(parent),
+    bg_color(Qt::white), font_color(Qt::black), btn_color(Qt::blue)
 {
-    setMinimumSize(200, 200);
+    setMinimumSize(CARD_FIXED_WIDTH, 0);
 
-    sum_height = MARGIN_PARENT_BOTTOM;
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+    sum_height = 0;
     hovering = false;
 }
 
@@ -30,20 +33,40 @@ TipCard *TipBox::createTipCard(QString key, QString title, QString content, QStr
     return card;
 }
 
+void TipBox::setBgColor(QColor c)
+{
+    bg_color = c;
+}
+
+void TipBox::setFontColor(QColor c)
+{
+    font_color = c;
+}
+
+void TipBox::setBtnColor(QColor c)
+{
+    btn_color = c;
+}
+
 void TipBox::adjustPosition()
 {
-    move(parentWidget()->width()-CARD_FIXED_WIDTH-MARGIN_PARENT_RIGHT, parentWidget()->height()-MARGIN_PARENT_BOTTOM-height());
+    move(parentWidget()->width()-CARD_FIXED_WIDTH-MARGIN_PARENT_RIGHT,
+         parentWidget()->height()-height()-MARGIN_PARENT_BOTTOM);
 }
 
 void TipBox::addCard(TipCard* card)
 {
+    card->setBgColor(bg_color);
+    card->setFontColor(font_color);
+    card->setBtnColor(btn_color);
+
     cards.append(card);
     connect(card, SIGNAL(signalClosed(TipCard*)), this, SLOT(slotCardClosed(TipCard*)));
     card->show();
 
-    // 通知卡片显示的高度
-    QSize size = card->size();
-    sum_height += size.height() + MARGIN_PARENT_BOTTOM;
+    // 通知卡片总区域显示的高度
+    QSize add_size = card->size();
+    sum_height += add_size.height() + CARDS_INTERVAL;
     QRect box_aim(parentWidget()->width()-CARD_FIXED_WIDTH-MARGIN_PARENT_RIGHT,
                   parentWidget()->height()-sum_height-MARGIN_PARENT_BOTTOM,
                   CARD_FIXED_WIDTH,
@@ -53,15 +76,17 @@ void TipBox::addCard(TipCard* card)
     box_ani->setEndValue(box_aim);
     box_ani->setDuration(300);
     box_ani->start();
+    connect(box_ani, SIGNAL(finished()), box_ani, SLOT(deleteLater()));
 
     // 最后一个从一个小点扩大到整个卡片
     QRect start_rect(geometry().width()-1, geometry().height()-1, 1, 1);
-    QRect end_rect(0, sum_height-size.height()-MARGIN_PARENT_BOTTOM-CARDS_INTERVAL, size.width(), size.height());
+    QRect end_rect(0, sum_height-add_size.height()-CARDS_INTERVAL, add_size.width(), add_size.height());
     QPropertyAnimation* card_ani = new QPropertyAnimation(card, "geometry");
     card_ani->setStartValue(start_rect);
     card_ani->setEndValue(end_rect);
     card_ani->setDuration(300);
     card_ani->start();
+    connect(card_ani, SIGNAL(finished()), card_ani, SLOT(deleteLater()));
 
     // 判断位置，如果鼠标不在这上面，则开启定时消失
     if (!hovering)
@@ -86,6 +111,7 @@ void TipBox::slotCardClosed(TipCard* removed_card)
     box_ani->setEndValue(box_aim);
     box_ani->setDuration(300);
     box_ani->start();
+    connect(box_ani, SIGNAL(finished()), box_ani, SLOT(deleteLater()));
 
     // 下面的每个卡片上移
     for (index = 0; index < cards.size(); index++)
@@ -112,23 +138,9 @@ void TipBox::slotCardClosed(TipCard* removed_card)
     animation->setEndValue(end_rect);
     animation->setDuration(300);
     animation->start();
-    connect(animation, &QPropertyAnimation::finished, [=]{
-         delete removed_card;
-//        removed_card->close();
-        //adjustHeight();
-    });
+    connect(animation, SIGNAL(finished()), animation, SLOT(deleteLater()));
+    connect(animation, &QPropertyAnimation::finished, [=]{ delete removed_card; });
     cards.removeOne(removed_card);
-}
-
-void TipBox::paintEvent(QPaintEvent *event)
-{
-    QPainter painter(this);
-    QPainterPath path_back;
-    path_back.setFillRule(Qt::WindingFill);
-    path_back.addRoundedRect(QRect(0, 0, width(), height()), 3, 3);
-    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
-    painter.fillPath(path_back, QBrush(Qt::blue));
-    return QWidget::paintEvent(event);
 }
 
 void TipBox::enterEvent(QEvent *event)

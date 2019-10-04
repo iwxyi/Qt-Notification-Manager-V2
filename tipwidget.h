@@ -26,9 +26,11 @@ public:
     TipCard* createTipCard(QString key, QString title, QString content, QString btn1);
     TipCard* createTipCard(QString key, QString title, QString content, QString btn1, QString btn2);
 
+    void setBgColor(QColor c);
+    void setFontColor(QColor c);
+    void setBtnColor(QColor c);
 
 protected:
-    void paintEvent(QPaintEvent* event) override;
     void enterEvent(QEvent *event) override;
     void leaveEvent(QEvent *event) override;
 
@@ -46,6 +48,11 @@ private:
     QList<TipCard*> cards;
     int sum_height;
     bool hovering;
+
+    // 保存色彩值
+    QColor bg_color;
+    QColor font_color;
+    QColor btn_color;
 };
 
 #endif // TIPBOXWIDGET_H

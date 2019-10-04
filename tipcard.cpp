@@ -45,8 +45,8 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
     setLayout(margin_hlayout);
 
     // 高度
-    title_label->setStyleSheet("background-color: red;");
-    content_label->setStyleSheet("background-color:green;");
+//    title_label->setStyleSheet("background-color: red;");
+//    content_label->setStyleSheet("background-color:green;");
     title_label->setFixedHeight(getWidgetHeight(title_label));
     content_label->setFixedHeight(getWidgetHeight(content_label));
     int height = title_label->height() + content_label->height() + aop_h*4 + TIP_CARD_CONTENT_MARGIN*2;
@@ -106,9 +106,19 @@ void TipCard::pauseWaitingLeave()
     close_timer->stop();
 }
 
-void TipCard::paintEvent(QPaintEvent *event)
+void TipCard::setBgColor(QColor c)
 {
-    ThreeDimenButton::paintEvent(event);
+    ThreeDimenButton::setBgColor(c);
+}
+
+void TipCard::setFontColor(QColor c)
+{
+
+}
+
+void TipCard::setBtnColor(QColor c)
+{
+
 }
 
 void TipCard::enterEvent(QEvent *event)

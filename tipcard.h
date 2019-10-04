@@ -36,8 +36,11 @@ public:
     void startWaitingLeave();
     void pauseWaitingLeave();
 
+    void setBgColor(QColor c);
+    void setFontColor(QColor c);
+    void setBtnColor(QColor c);
+
 protected:
-    void paintEvent(QPaintEvent* event) override;
     void enterEvent(QEvent*event) override;
     void leaveEvent(QEvent*event) override;
 
