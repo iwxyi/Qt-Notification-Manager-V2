@@ -1,14 +1,14 @@
 #include "tipcard.h"
 
-TipCard::TipCard(QWidget *parent, NotificationEntry noti)
+TipCard::TipCard(QWidget *parent, NotificationEntry *noti)
     : ThreeDimenButton(parent), noti(noti)
 {
     setBgColor(Qt::yellow);
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     // 初始化控件
-    title_label = new QLabel(noti.title, this);
-    content_label = new QLabel(noti.content, this);
+    title_label = new QLabel(noti->title, this);
+    content_label = new QLabel(noti->content, this);
     close_button = new InteractiveButtonBase(QIcon(":/icons/hide_right"), this);
     operator1_button = nullptr;
     operator2_button = nullptr;
@@ -46,9 +46,9 @@ TipCard::TipCard(QWidget *parent, NotificationEntry noti)
     setLayout(margin_hlayout);
 
     // 添加按钮1
-    if (!noti.btn1.isEmpty())
+    if (!noti->btn1.isEmpty())
     {
-        btn_layout->addWidget(operator1_button = new InteractiveButtonBase(noti.btn1, this));
+        btn_layout->addWidget(operator1_button = new InteractiveButtonBase(noti->btn1, this));
         connect(operator1_button, &InteractiveButtonBase::clicked, [=]{
             emit signalButton1Clicked(noti);
         });
@@ -56,18 +56,18 @@ TipCard::TipCard(QWidget *parent, NotificationEntry noti)
     }
 
     // 添加按钮2
-    if (!noti.btn2.isEmpty())
+    if (!noti->btn2.isEmpty())
     {
-        btn_layout->addWidget(operator2_button = new InteractiveButtonBase(noti.btn2, this));
+        btn_layout->addWidget(operator2_button = new InteractiveButtonBase(noti->btn2, this));
         connect(operator2_button, &InteractiveButtonBase::clicked, [=]{
             emit signalButton2Clicked(noti);
         });
     }
 
     // 添加按钮3
-    if (!noti.btn3.isEmpty())
+    if (!noti->btn3.isEmpty())
     {
-        btn_layout->addWidget(operator3_button = new InteractiveButtonBase(noti.btn3, this));
+        btn_layout->addWidget(operator3_button = new InteractiveButtonBase(noti->btn3, this));
         connect(operator3_button, &InteractiveButtonBase::clicked, [=]{
             emit signalButton3Clicked(noti);
         });
@@ -121,7 +121,7 @@ void TipCard::slotClosed()
 
 void TipCard::startWaitingLeave()
 {
-    close_timer->start(has_leaved ? 1000 : (noti.time>0?noti.time:5000));
+    close_timer->start(has_leaved ? 1000 : (noti->time>0?noti->time:5000));
 }
 
 void TipCard::pauseWaitingLeave()

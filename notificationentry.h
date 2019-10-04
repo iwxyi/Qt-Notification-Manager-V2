@@ -1,10 +1,12 @@
 #ifndef NOTIFICATIONENTRY_H
 #define NOTIFICATIONENTRY_H
 
+#include <QObject>
 #include <QStringList>
 
-struct NotificationEntry
+class NotificationEntry : public QObject
 {
+    Q_OBJECT
 public:
     NotificationEntry() : time(5000), click_hide(false), click_at(CAB_CARD)
     {
@@ -62,7 +64,7 @@ public:
         values << v;
     }
 
-    NotificationEntry click(int i)
+    NotificationEntry* click(int i)
     {
         if (i == 0)
             click_at = CAB_CARD;
@@ -72,7 +74,7 @@ public:
             click_at = CAB_BTN2;
         else if (i == 3)
             click_at = CAB_BTN3;
-        return *this;
+        return this;
     }
 
     QString toString()
@@ -94,6 +96,12 @@ public:
             cmd = cmd3;
         return cmd;
     }
+
+signals:
+    void signalCardClicked();
+    void signalBtnClicked(int i);
+
+public:
 
     QString key;
     QString title;

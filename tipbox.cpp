@@ -12,7 +12,7 @@ TipBox::TipBox(QWidget *parent) : QWidget(parent), suitable_width(CARD_FIXED_WID
 
 }
 
-TipCard *TipBox::createTipCard(NotificationEntry noti)
+TipCard *TipBox::createTipCard(NotificationEntry* noti)
 {
     TipCard * card = new TipCard(this, noti);
     addCard(card);
@@ -59,17 +59,17 @@ void TipBox::addCard(TipCard* card)
     card->show();
 
     // 关联信号槽
-    connect(card, &TipCard::signalCardClicked, [=](NotificationEntry n){
-        emit signalCardClicked(n.click(0));
+    connect(card, &TipCard::signalCardClicked, [=](NotificationEntry* n){
+        emit signalCardClicked(n->click(0));
     });
-    connect(card, &TipCard::signalButton1Clicked, [=](NotificationEntry n){
-        emit signalBtnClicked(n.click(1));
+    connect(card, &TipCard::signalButton1Clicked, [=](NotificationEntry* n){
+        emit signalBtnClicked(n->click(1));
     });
-    connect(card, &TipCard::signalButton2Clicked, [=](NotificationEntry n){
-        emit signalBtnClicked(n.click(2));
+    connect(card, &TipCard::signalButton2Clicked, [=](NotificationEntry* n){
+        emit signalBtnClicked(n->click(2));
     });
-    connect(card, &TipCard::signalButton3Clicked, [=](NotificationEntry n){
-        emit signalBtnClicked(n.click(3));
+    connect(card, &TipCard::signalButton3Clicked, [=](NotificationEntry* n){
+        emit signalBtnClicked(n->click(3));
     });
 
 

@@ -22,7 +22,7 @@ class TipBox : public QWidget
     Q_OBJECT
 public:
     explicit TipBox(QWidget *parent);
-    TipCard* createTipCard(NotificationEntry noti);
+    TipCard* createTipCard(NotificationEntry *noti);
 
     void setBgColor(QColor c);
     void setFontColor(QColor c);
@@ -37,9 +37,9 @@ private:
     void addCard(TipCard *card);
 
 signals:
-    void signalCardClosed(NotificationEntry noti);
-    void signalCardClicked(NotificationEntry noti);
-    void signalBtnClicked(NotificationEntry noti);
+    void signalCardClosed(NotificationEntry* noti);
+    void signalCardClicked(NotificationEntry* noti);
+    void signalBtnClicked(NotificationEntry* noti);
 
 public slots:
     void slotCardClosed(TipCard* card);

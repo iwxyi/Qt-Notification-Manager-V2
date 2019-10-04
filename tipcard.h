@@ -40,7 +40,7 @@ class TipCard : public ThreeDimenButton
 
 #define TIP_CARD_CONTENT_MARGIN 10
 public:
-    TipCard(QWidget *parent, NotificationEntry noti);
+    TipCard(QWidget *parent, NotificationEntry* noti);
 
     void startWaitingLeave();
     void pauseWaitingLeave();
@@ -62,16 +62,16 @@ private:
 
 signals:
     void signalClosed(TipCard* card);
-    void signalCardClicked(NotificationEntry noti);
-    void signalButton1Clicked(NotificationEntry noti);
-    void signalButton2Clicked(NotificationEntry noti);
-    void signalButton3Clicked(NotificationEntry noti);
+    void signalCardClicked(NotificationEntry* noti);
+    void signalButton1Clicked(NotificationEntry* noti);
+    void signalButton2Clicked(NotificationEntry* noti);
+    void signalButton3Clicked(NotificationEntry* noti);
 
 public slots:
     void slotClosed();
 
 private:
-    NotificationEntry noti;
+    NotificationEntry* noti;
 
     QLabel* title_label;
     QLabel* content_label;
