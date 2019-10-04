@@ -19,8 +19,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::resizeEvent(QResizeEvent *)
+void MainWindow::resizeEvent(QResizeEvent *event)
 {
+    QMainWindow::resizeEvent(event);
+
     tip_widget->adjustPosition();
 }
 

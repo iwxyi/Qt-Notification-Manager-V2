@@ -15,15 +15,15 @@ INCLUDEPATH += win_buttons
 
 SOURCES += main.cpp\
         mainwindow.cpp \
+    tipbox.cpp \
     tipcard.cpp \
-    tipwidget.cpp \
     win_buttons/interactivebuttonbase.cpp \
     win_buttons/threedimenbutton.cpp
 
 HEADERS  += mainwindow.h \
     notificationentry.h \
+    tipbox.h \
     tipcard.h \
-    tipwidget.h \
     win_buttons/interactivebuttonbase.h \
     win_buttons/threedimenbutton.h
 

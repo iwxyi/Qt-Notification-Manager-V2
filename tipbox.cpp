@@ -1,4 +1,4 @@
-#include "tipwidget.h"
+#include "tipbox.h"
 
 TipBox::TipBox(QWidget *parent) : QWidget(parent), suitable_width(CARD_FIXED_WIDTH),
     bg_color(Qt::white), font_color(Qt::black), btn_color(Qt::blue)
@@ -164,14 +164,14 @@ void TipBox::leaveEvent(QEvent *event)
     return QWidget::leaveEvent(event);
 }
 
-void TipBox::paintEvent(QPaintEvent *event)
+/*void TipBox::paintEvent(QPaintEvent *event)
 {
+    // 背景调试
     QPainter painter(this);
     QPainterPath path_back;
     path_back.setFillRule(Qt::WindingFill);
     path_back.addRoundedRect(QRect(0, 0, width(), height()), 3, 3);
     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
     painter.fillPath(path_back, QBrush(Qt::red));
-//    painter.fillPath(path_back, QBrush(Qt::red));
     return QWidget::paintEvent(event);
-}
+}*/

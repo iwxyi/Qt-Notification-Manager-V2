@@ -5,7 +5,7 @@
 #include <QResizeEvent>
 #include <QScreen>
 #include <QDesktopServices>
-#include "tipwidget.h"
+#include "tipbox.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,7 +20,7 @@ public:
     ~MainWindow();
 
 protected:
-    void resizeEvent(QResizeEvent*);
+    void resizeEvent(QResizeEvent*event);
 
 private slots:
     void on_pushButton_clicked();
