@@ -33,7 +33,6 @@ public:
     TipCard(QWidget *parent, QString k, QString t, QString c, QString b);
     TipCard(QWidget *parent, QString k, QString t, QString c, QString b1, QString b2);
 
-    QSize getSize();
     void startWaitingLeave();
     void pauseWaitingLeave();
 
@@ -43,8 +42,6 @@ protected:
     void leaveEvent(QEvent*event) override;
 
 private:
-    void initCard();
-
     template<typename T>
     int getWidgetHeight(T* w);
 

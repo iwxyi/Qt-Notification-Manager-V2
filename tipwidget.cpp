@@ -42,7 +42,7 @@ void TipBox::addCard(TipCard* card)
     card->show();
 
     // 通知卡片显示的高度
-    QSize size = card->getSize();
+    QSize size = card->size();
     sum_height += size.height() + MARGIN_PARENT_BOTTOM;
     QRect box_aim(parentWidget()->width()-CARD_FIXED_WIDTH-MARGIN_PARENT_RIGHT,
                   parentWidget()->height()-sum_height-MARGIN_PARENT_BOTTOM,
@@ -56,7 +56,7 @@ void TipBox::addCard(TipCard* card)
 
     // 最后一个从一个小点扩大到整个卡片
     QRect start_rect(geometry().width()-1, geometry().height()-1, 1, 1);
-    QRect end_rect(0, sum_height-size.height()-MARGIN_PARENT_BOTTOM-CARDS_INTERVAL, card->getSize().width(), card->getSize().height());
+    QRect end_rect(0, sum_height-size.height()-MARGIN_PARENT_BOTTOM-CARDS_INTERVAL, size.width(), size.height());
     QPropertyAnimation* card_ani = new QPropertyAnimation(card, "geometry");
     card_ani->setStartValue(start_rect);
     card_ani->setEndValue(end_rect);
@@ -93,7 +93,7 @@ void TipBox::slotCardClosed(TipCard* removed_card)
         if (cards.at(index) == removed_card)
             continue ;
         TipCard* card = cards.at(index);
-        QRect end_rect(0, temp_height, CARD_FIXED_WIDTH, card->getSize().height());
+        QRect end_rect(0, temp_height, CARD_FIXED_WIDTH, removed_size.height());
 
         QPropertyAnimation* card_ani = new QPropertyAnimation(card, "geometry");
         card_ani->setStartValue(card->geometry());
@@ -101,7 +101,7 @@ void TipBox::slotCardClosed(TipCard* removed_card)
         card_ani->setDuration(300);
         card_ani->start();
 
-        temp_height += card->getSize().height() + CARDS_INTERVAL;
+        temp_height += removed_size.height() + CARDS_INTERVAL;
     }
 
     // 要删除的卡片，缩小成右边的一个点
