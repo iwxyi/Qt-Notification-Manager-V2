@@ -32,11 +32,9 @@ connect(tip_box, &TipBox::signalBtnClicked, [=](NotificationEntry n){
 添加通知
 
 ```C++
-NotificationEntry noti;
-noti.key = "key";
-noti.title = "title";
-noti.content = "content1";
-noti.btn1 = "btn1";
+NotificationEntry noti("key", "title", "content1");
+noti.setBtn(1, "btn1", "cmd1");
+noti.setBtn(2, "btn2", "cmd2");
 tip_box->createTipCard(noti);
 ```
 

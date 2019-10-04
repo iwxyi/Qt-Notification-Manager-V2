@@ -80,8 +80,10 @@ TipCard::TipCard(QWidget *parent, NotificationEntry noti)
     title_label->setFont(bold_font);
 
     // 高度
-    title_label->setFixedHeight(getWidgetHeight(title_label));
-    content_label->setFixedHeight(getWidgetHeight(content_label));
+    title_label->adjustSize();
+    content_label->adjustSize();
+//    title_label->setFixedHeight(getWidgetHeight(title_label));
+//    content_label->setFixedHeight(getWidgetHeight(content_label));
     int height = title_label->height() + content_label->height() + aop_h*4 + TIP_CARD_CONTENT_MARGIN*2;
     if (operator1_button != nullptr)
         height += operator1_button->height();

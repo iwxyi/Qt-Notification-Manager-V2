@@ -37,7 +37,7 @@ void MainWindow::on_pushButton_clicked()
     NotificationEntry noti;
     noti.key = "key";
     noti.title = "title";
-    noti.content = "content1\ncontent2\ncontent3";
+    noti.content = "content1111111111111111111111111111111111111111111111111";
     tip_box->createTipCard(noti);
 }
 
@@ -50,15 +50,15 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    NotificationEntry noti("key", "title", "content1\ncontent2\ncontent3");
-    noti.btn1 = "btn1";
-    noti.btn2 = "btn2";
+    NotificationEntry noti("key", "title", "content1");
+    noti.setBtn(1, "btn1", "cmd1");
+    noti.setBtn(2, "btn2", "cmd2");
     tip_box->createTipCard(noti);
 }
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    NotificationEntry noti("key", "title", "content1\ncontent2\ncontent3");
+    NotificationEntry noti("key", "title", "content1\ncontent2");
     noti.btn1 = "btn1";
     noti.btn2 = "btn2";
     noti.btn3 = "btn3";
