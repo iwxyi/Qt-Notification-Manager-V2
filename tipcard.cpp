@@ -83,19 +83,18 @@ TipCard::TipCard(QWidget *parent, NotificationEntry noti)
     title_label->adjustSize();
     content_label->adjustSize();
 //    title_label->setFixedHeight(getWidgetHeight(title_label));
-    content_label->setFixedHeight(getWidgetHeight(content_label));
     content_label->setFixedWidth(parentWidget()->width()-aop_w*4-TIP_CARD_CONTENT_MARGIN*2);
+    content_label->setFixedHeight(getWidgetHeight(content_label));
     int height = title_label->height() + content_label->height() + aop_h*4 + TIP_CARD_CONTENT_MARGIN*2;
     if (operator1_button != nullptr)
         height += operator1_button->height();
     setMinimumSize(100, max(50, height));
 
-    // 按钮大小
+    // 控件大小
     close_button->setFixedSize(title_label->height(), title_label->height());
     if (parentWidget() != nullptr)
         setFixedWidth(parentWidget()->width());
     content_label->setWordWrap(true);
-
 
     // 初始化变量
     is_closing = false;
@@ -189,7 +188,7 @@ template<typename T>
 int TipCard::getWidgetHeight(T *w)
 {
     QStringList strs = w->text().split("\n"); // 分成多行
-    int w_width = parentWidget()->width();                 // 控件宽度（用以拆分长字符串为多行）
+    int w_width = w->width();                 // 控件宽度（用以拆分长字符串为多行）
     int height = 0;
     QFontMetrics fm = w->fontMetrics();
     double mPixelPerCentimer = 1.0;

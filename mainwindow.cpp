@@ -37,7 +37,8 @@ void MainWindow::on_pushButton_clicked()
     NotificationEntry noti;
     noti.key = "key";
     noti.title = "title";
-    noti.content = "content1111111111111111111111111111111111111111111111111";
+//    noti.content = "content1 11111111 1111111 1111111111 11111111 1111 11111111111";
+    noti.content = "这是一个通知通知通知通知通知通知通知通知通知通知通知通知";
     tip_box->createTipCard(noti);
 }
 
