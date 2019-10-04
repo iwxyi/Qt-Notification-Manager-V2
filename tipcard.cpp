@@ -121,7 +121,7 @@ void TipCard::slotClosed()
 
 void TipCard::startWaitingLeave()
 {
-    close_timer->start(has_leaved ? 1000 : 5000);
+    close_timer->start(has_leaved ? 1000 : (noti.time>0?noti.time:5000));
 }
 
 void TipCard::pauseWaitingLeave()

@@ -17,7 +17,17 @@ Qt通知控件
 
 ## 用法
 
-初始化
+### 头文件
+
+需要在工程pro文件中包含头文件
+
+```C++
+#include "tipbox.h"
+```
+
+
+
+### 初始化
 
 ```C++
 tip_box = new TipBox(this);
@@ -29,7 +39,11 @@ connect(tip_box, &TipBox::signalBtnClicked, [=](NotificationEntry n){
 });
 ```
 
-添加通知
+
+
+### 添加通知
+
+在窗口右下角添加一个通知卡片，5秒钟后定时消失
 
 ```C++
 NotificationEntry noti("key", "title", "content1");
@@ -38,7 +52,11 @@ noti.setBtn(2, "btn2", "cmd2");
 tip_box->createTipCard(noti);
 ```
 
-自动调整大小
+
+
+### 自动调整大小
+
+在修改窗口大小的时候，固定通知Box在右下角
 
 ```C++
 void MainWindow::resizeEvent(QResizeEvent*)
