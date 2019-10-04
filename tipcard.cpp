@@ -45,8 +45,6 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
     setLayout(margin_hlayout);
 
     initCard();
-
-    initSize();
 }
 
 TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b)
@@ -55,7 +53,7 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b)
     // 添加一个按钮
     btn_layout->addWidget(operator1_button = new InteractiveButtonBase(btn1_title = b, this));
 
-    initSize();
+    this->setFixedSize(width(), height() + operator1_button->height());
 }
 
 TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b1, QString b2)
@@ -77,10 +75,8 @@ void TipCard::initCard()
     close_timer = new QTimer(this);
     close_timer->setSingleShot(true);
     connect(close_timer, SIGNAL(timeout()), this, SLOT(slotClosed()));
-}
 
-void TipCard::initSize()
-{
+    // 高度
     title_label->setStyleSheet("background-color: red;");
     content_label->setStyleSheet("background-color:green;");
     title_label->setFixedHeight(getWidgetHeight(title_label));
@@ -89,7 +85,6 @@ void TipCard::initSize()
     if (operator1_button != nullptr)
         height += operator1_button->height();
     setMinimumSize(100, max(50, height));
-    my_size = this->size();
 
     // 布局
     close_button->setFixedSize(title_label->height(), title_label->height());
@@ -110,7 +105,7 @@ void TipCard::slotClosed()
  */
 QSize TipCard::getSize()
 {
-    return my_size;
+    return this->size();
 }
 
 void TipCard::startWaitingLeave()

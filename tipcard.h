@@ -44,7 +44,6 @@ protected:
 
 private:
     void initCard();
-    void initSize();
 
     template<typename T>
     int getWidgetHeight(T* w);

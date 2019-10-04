@@ -12,7 +12,7 @@
 #include <QPropertyAnimation>
 #include "tipcard.h"
 
-#define CARDS_INTERVAL 10
+#define CARDS_INTERVAL 0
 #define MARGIN_PARENT_RIGHT 20
 #define MARGIN_PARENT_BOTTOM 10
 #define CARD_FIXED_WIDTH 200

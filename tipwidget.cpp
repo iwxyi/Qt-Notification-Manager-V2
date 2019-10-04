@@ -75,7 +75,7 @@ void TipBox::slotCardClosed(TipCard* removed_card)
     int index, temp_height = 0;
     QSize removed_size = removed_card->size();
 
-    // 整体宽度变化
+    // 整体高度变化
     sum_height -= removed_size.height() + CARDS_INTERVAL;
     QRect box_aim(parentWidget()->width()-CARD_FIXED_WIDTH-MARGIN_PARENT_RIGHT,
                   parentWidget()->height()-sum_height-MARGIN_PARENT_BOTTOM,
@@ -127,7 +127,7 @@ void TipBox::paintEvent(QPaintEvent *event)
     path_back.setFillRule(Qt::WindingFill);
     path_back.addRoundedRect(QRect(0, 0, width(), height()), 3, 3);
     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
-//    painter.fillPath(path_back, QBrush(Qt::red));
+    painter.fillPath(path_back, QBrush(Qt::blue));
     return QWidget::paintEvent(event);
 }
 
