@@ -107,6 +107,7 @@ public:
     QString cmd1;
     QString cmd2;
     QString cmd3;
+    QStringList args;
     QStringList filters;
     QStringList values;
     ClickAtButton click_at;
