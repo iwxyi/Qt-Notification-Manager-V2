@@ -21,6 +21,7 @@ SOURCES += main.cpp\
     win_buttons/threedimenbutton.cpp
 
 HEADERS  += mainwindow.h \
+    notificationentry.h \
     tipcard.h \
     tipwidget.h \
     win_buttons/interactivebuttonbase.h \

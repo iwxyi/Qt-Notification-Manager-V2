@@ -1,14 +1,14 @@
 #include "tipcard.h"
 
-TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
-    : ThreeDimenButton(parent), key(k), title(t), content(c)
+TipCard::TipCard(QWidget *parent, NotificationEntry noti)
+    : ThreeDimenButton(parent), noti(noti)
 {
     setBgColor(Qt::yellow);
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     // 初始化控件
-    title_label = new QLabel(title, this);
-    content_label = new QLabel(content, this);
+    title_label = new QLabel(noti.title, this);
+    content_label = new QLabel(noti.content, this);
     close_button = new InteractiveButtonBase(QIcon(":/icons/hide_right"), this);
     operator1_button = nullptr;
     operator2_button = nullptr;
@@ -44,6 +44,25 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
     }
     setLayout(margin_hlayout);
 
+    // 添加按钮1
+    if (!noti.btn1.isEmpty())
+    {
+        btn_layout->addWidget(operator1_button = new InteractiveButtonBase(noti.btn1, this));
+        connect(operator1_button, &InteractiveButtonBase::clicked, [=]{
+            emit signalButton1Clicked(noti.cmd1);
+        });
+        this->setFixedSize(width(), height() + operator1_button->height());
+    }
+
+    // 添加按钮2
+    if (!noti.btn2.isEmpty())
+    {
+        btn_layout->addWidget(operator2_button = new InteractiveButtonBase(noti.btn2, this));
+        connect(operator2_button, &InteractiveButtonBase::clicked, [=]{
+            emit signalButton1Clicked(noti.cmd2);
+        });
+    }
+
     // 样式
     QFont bold_font = title_label->font();
     bold_font.setBold(true);
@@ -75,22 +94,6 @@ TipCard::TipCard(QWidget *parent, QString k, QString t, QString c)
     close_timer = new QTimer(this);
     close_timer->setSingleShot(true);
     connect(close_timer, SIGNAL(timeout()), this, SLOT(slotClosed()));
-}
-
-TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b)
-    : TipCard(parent, k, t, c)
-{
-    // 添加按钮1
-    btn_layout->addWidget(operator1_button = new InteractiveButtonBase(btn1_title = b, this));
-
-    this->setFixedSize(width(), height() + operator1_button->height());
-}
-
-TipCard::TipCard(QWidget *parent, QString k, QString t, QString c, QString b1, QString b2)
-    : TipCard(parent, k, t, c, b1)
-{
-    // 添加按钮2
-    btn_layout->addWidget(operator2_button = new InteractiveButtonBase(btn2_title = b2, this));
 }
 
 void TipCard::slotClosed()
@@ -152,6 +155,15 @@ QString TipCard::colorToCss(QColor c)
         return QString("rgb(%1, %2, %3)").arg(c.red()).arg(c.green()).arg(c.blue());
     else
         return QString("rgb(%1, %2, %3, %4)").arg(c.red()).arg(c.green()).arg(c.blue()).arg(c.alpha());
+}
+
+QString TipCard::getXml(QString str, QString tag)
+{
+    int pos = str.indexOf("<"+tag+">");
+    if (pos == -1) return str;
+    int pos2 = str.indexOf("</"+tag+">");
+    if (pos2 == -1) return str.right(str.length()-pos-tag.length()-2);
+    return str.mid(pos+tag.length()+2, pos2-tag.length()-2);
 }
 
 template<typename T>

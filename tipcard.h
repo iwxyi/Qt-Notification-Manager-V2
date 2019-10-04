@@ -18,9 +18,20 @@
 #include <QPropertyAnimation>
 #include <QDebug>
 #include <QtPrintSupport/QPrinter>
+#include "notificationentry.h"
 #include "threedimenbutton.h"
 
 class TipBox;
+
+/**
+ * <KEY>key</KEY>
+ * <TTL>title</TTL>
+ * <CMD>command</CMD>
+ * <FLTS>
+ *     <FLT>filter<FLT>
+ *     <VAL>value<VAL>
+ * <FLTS>
+ */
 
 class TipCard : public ThreeDimenButton
 {
@@ -29,9 +40,7 @@ class TipCard : public ThreeDimenButton
 
 #define TIP_CARD_CONTENT_MARGIN 10
 public:
-    TipCard(QWidget *parent, QString k, QString t, QString c);
-    TipCard(QWidget *parent, QString k, QString t, QString c, QString b);
-    TipCard(QWidget *parent, QString k, QString t, QString c, QString b1, QString b2);
+    TipCard(QWidget *parent, NotificationEntry noti);
 
     void startWaitingLeave();
     void pauseWaitingLeave();
@@ -49,21 +58,19 @@ private:
     int getWidgetHeight(T* w);
 
     QString colorToCss(QColor c);
+    QString getXml(QString str, QString tag);
 
 signals:
     void signalClosed(TipCard* card);
-    void signalButton1Clicked(QString key);
-    void signalButton2Clicked(QString key);
+    void signalCardClicked(QString cmd);
+    void signalButton1Clicked(QString cmd);
+    void signalButton2Clicked(QString cmd);
 
 public slots:
     void slotClosed();
 
 private:
-    QString key;
-    QString title;
-    QString content;
-    QString btn1_title, btn2_title;
-    QString str1, str2, str3;
+    NotificationEntry noti;
 
     QLabel* title_label;
     QLabel* content_label;

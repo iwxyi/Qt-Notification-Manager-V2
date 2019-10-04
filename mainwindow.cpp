@@ -26,10 +26,30 @@ void MainWindow::resizeEvent(QResizeEvent *)
 
 void MainWindow::on_pushButton_clicked()
 {
-    tip_widget->createTipCard("key", "title", "content1\ncontent2\ncontent3");
+    NotificationEntry noti;
+    noti.key = "key";
+    noti.title = "title";
+    noti.content = "content1\ncontent2\ncontent3";
+    tip_widget->createTipCard(noti);
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    tip_widget->createTipCard("key", "title", "content1\ncontent2\ncontent3", "button1");
+    NotificationEntry noti;
+    noti.key = "key";
+    noti.title = "title";
+    noti.content = "content1\ncontent2\ncontent3";
+    noti.btn1 = "btn1";
+    tip_widget->createTipCard(noti);
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    NotificationEntry noti;
+    noti.key = "key";
+    noti.title = "title";
+    noti.content = "content1\ncontent2\ncontent3";
+    noti.btn1 = "btn1";
+    noti.btn2 = "btn2";
+    tip_widget->createTipCard(noti);
 }

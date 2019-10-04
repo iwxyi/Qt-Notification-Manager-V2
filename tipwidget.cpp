@@ -11,24 +11,9 @@ TipBox::TipBox(QWidget *parent) : QWidget(parent),
     hovering = false;
 }
 
-TipCard *TipBox::createTipCard(QString key, QString title, QString content)
+TipCard *TipBox::createTipCard(NotificationEntry noti)
 {
-    content += QString("%1").arg(cards.size());
-    TipCard * card = new TipCard(this, key, title, content);
-    addCard(card);
-    return card;
-}
-
-TipCard *TipBox::createTipCard(QString key, QString title, QString content, QString btn1)
-{
-    TipCard * card = new TipCard(this, key, title, content, btn1);
-    addCard(card);
-    return card;
-}
-
-TipCard *TipBox::createTipCard(QString key, QString title, QString content, QString btn1, QString btn2)
-{
-    TipCard * card = new TipCard(this, key, title, content, btn1, btn2);
+    TipCard * card = new TipCard(this, noti);
     addCard(card);
     return card;
 }
@@ -63,6 +48,15 @@ void TipBox::addCard(TipCard* card)
     cards.append(card);
     connect(card, SIGNAL(signalClosed(TipCard*)), this, SLOT(slotCardClosed(TipCard*)));
     card->show();
+
+    // 关联信号槽
+    connect(card, &TipCard::signalButton1Clicked, [=](QString s){
+        emit signalBtnClicked(s);
+    });
+    connect(card, &TipCard::signalButton2Clicked, [=](QString s){
+        emit signalBtnClicked(s);
+    });
+
 
     // 通知卡片总区域显示的高度
     QSize add_size = card->size();
