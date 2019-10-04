@@ -9,6 +9,7 @@ TipBox::TipBox(QWidget *parent) : QWidget(parent), suitable_width(CARD_FIXED_WID
 
     sum_height = 0;
     hovering = false;
+
 }
 
 TipCard *TipBox::createTipCard(NotificationEntry noti)
@@ -43,7 +44,6 @@ void TipBox::adjustPosition()
 
     foreach (TipCard* card, cards)
     {
-//        card->setFixedWidth(suitable_width);
         card->slotClosed();
     }
 }
@@ -122,7 +122,7 @@ void TipBox::slotCardClosed(TipCard* removed_card)
         if (cards.at(index) == removed_card)
             continue ;
         TipCard* card = cards.at(index);
-        QRect end_rect(0, temp_height, suitable_width, removed_size.height());
+        QRect end_rect(0, temp_height, suitable_width, card->height());
 
         QPropertyAnimation* card_ani = new QPropertyAnimation(card, "geometry");
         card_ani->setStartValue(card->geometry());
@@ -130,7 +130,7 @@ void TipBox::slotCardClosed(TipCard* removed_card)
         card_ani->setDuration(300);
         card_ani->start();
 
-        temp_height += removed_size.height() + CARDS_INTERVAL;
+        temp_height += card->height() + CARDS_INTERVAL;
     }
 
     // 要删除的卡片，缩小成右边的一个点
@@ -162,4 +162,16 @@ void TipBox::leaveEvent(QEvent *event)
         card->startWaitingLeave();
     }
     return QWidget::leaveEvent(event);
+}
+
+void TipBox::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    QPainterPath path_back;
+    path_back.setFillRule(Qt::WindingFill);
+    path_back.addRoundedRect(QRect(0, 0, width(), height()), 3, 3);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+    painter.fillPath(path_back, QBrush(Qt::red));
+//    painter.fillPath(path_back, QBrush(Qt::red));
+    return QWidget::paintEvent(event);
 }

@@ -31,6 +31,7 @@ public:
 protected:
     void enterEvent(QEvent *event) override;
     void leaveEvent(QEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
 
 private:
     void addCard(TipCard *card);
