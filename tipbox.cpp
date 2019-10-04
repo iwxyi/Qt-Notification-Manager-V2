@@ -148,7 +148,7 @@ void TipBox::slotCardClosed(TipCard* removed_card)
     animation->setDuration(300);
     animation->start();
     connect(animation, SIGNAL(finished()), animation, SLOT(deleteLater()));
-    connect(animation, &QPropertyAnimation::finished, [=]{ delete removed_card; });
+    connect(animation, &QPropertyAnimation::finished, [=]{ removed_card->noti->deleteLater(); delete removed_card; });
     cards.removeOne(removed_card);
 }
 

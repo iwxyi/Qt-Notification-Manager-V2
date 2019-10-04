@@ -50,6 +50,7 @@ TipCard::TipCard(QWidget *parent, NotificationEntry *noti)
     {
         btn_layout->addWidget(operator1_button = new InteractiveButtonBase(noti->btn1, this));
         connect(operator1_button, &InteractiveButtonBase::clicked, [=]{
+            emit noti->signalBtnClicked(1);
             emit signalButton1Clicked(noti);
         });
         this->setFixedSize(width(), height() + operator1_button->height());
@@ -60,6 +61,7 @@ TipCard::TipCard(QWidget *parent, NotificationEntry *noti)
     {
         btn_layout->addWidget(operator2_button = new InteractiveButtonBase(noti->btn2, this));
         connect(operator2_button, &InteractiveButtonBase::clicked, [=]{
+            emit noti->signalBtnClicked(2);
             emit signalButton2Clicked(noti);
         });
     }
@@ -69,9 +71,17 @@ TipCard::TipCard(QWidget *parent, NotificationEntry *noti)
     {
         btn_layout->addWidget(operator3_button = new InteractiveButtonBase(noti->btn3, this));
         connect(operator3_button, &InteractiveButtonBase::clicked, [=]{
+            emit noti->signalBtnClicked(3);
             emit signalButton3Clicked(noti);
         });
     }
+
+    // 事件
+    connect(close_button, SIGNAL(clicked(bool)), this, SLOT(slotClosed()));
+    connect(this, &ThreeDimenButton::clicked, [=]{
+        emit noti->signalCardClicked();
+        emit signalCardClicked(noti);
+    });
 
     // 样式
     QFont bold_font = title_label->font();
@@ -100,11 +110,7 @@ TipCard::TipCard(QWidget *parent, NotificationEntry *noti)
     is_closing = false;
     has_leaved = false;
 
-    // 事件
-    connect(close_button, SIGNAL(clicked(bool)), this, SLOT(slotClosed()));
-    connect(this, &ThreeDimenButton::clicked, [=]{
-        emit signalCardClicked(noti);
-    });
+
 
     // 定时器
     close_timer = new QTimer(this);

@@ -51,6 +51,13 @@ void MainWindow::on_pushButton_3_clicked()
     noti->setBtn(1, "btn1", "cmd1");
     noti->setBtn(2, "btn2", "cmd2");
     tip_box->createTipCard(noti);
+
+    connect(noti, &NotificationEntry::signalCardClicked, [=]{
+        qDebug() << "通知被点击";
+    });
+    connect(noti, &NotificationEntry::signalBtnClicked, [=](int x){
+        qDebug() << "按钮被点击" << x;
+    });
 }
 
 void MainWindow::on_pushButton_4_clicked()

@@ -5,6 +5,11 @@ Qt通知控件
 
 和之前版本相比，使用了另一套控件：InteractiveButton，提高交互操作
 
+允许两种使用方式：
+
+- 局部通知，通过信号槽和 Lambda 直接获取通知的操作方式
+- 全部通知，触发信号给其他控件使用
+
 另外支持卡片本身、附加三个按钮的点击事件
 
 ![picture](picture.gif)
@@ -31,11 +36,11 @@ Qt通知控件
 
 ```C++
 tip_box = new TipBox(this);
-connect(tip_box, &TipBox::signalCardClicked, [=](NotificationEntry n){
-    qDebug() << n.toString();
+connect(tip_box, &TipBox::signalCardClicked, [=](NotificationEntry* n){
+    qDebug() << n->toString();
 });
-connect(tip_box, &TipBox::signalBtnClicked, [=](NotificationEntry n){
-    qDebug() << n.toString();
+connect(tip_box, &TipBox::signalBtnClicked, [=](NotificationEntry* n){
+    qDebug() << n->toString();
 });
 ```
 
@@ -46,10 +51,12 @@ connect(tip_box, &TipBox::signalBtnClicked, [=](NotificationEntry n){
 在窗口右下角添加一个通知卡片，5秒钟后定时消失
 
 ```C++
-NotificationEntry noti("key", "title", "content1");
-noti.setBtn(1, "btn1", "cmd1");
-noti.setBtn(2, "btn2", "cmd2");
+NotificationEntry* noti = new NotificationEntry("key", "title", "content1");
+noti->setBtn(1, "btn1", "cmd1"); // 全局信号可接收
+noti->setBtn(2, "btn2", "cmd2");
 tip_box->createTipCard(noti);
+
+connect()
 ```
 
 
