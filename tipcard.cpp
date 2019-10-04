@@ -131,7 +131,7 @@ void TipCard::setBgColor(QColor c)
 void TipCard::setFontColor(QColor c)
 {
     QString color_qss = "color:" + colorToCss(c) + ";";
-    title_label->setStyleSheet(color_qss);
+    title_label->setStyleSheet("padding-left:5px;\n" + color_qss);
     content_label->setStyleSheet(color_qss);
 }
 

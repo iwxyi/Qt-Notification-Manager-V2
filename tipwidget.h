@@ -49,6 +49,8 @@ private:
     int sum_height;
     bool hovering;
 
+    int suitable_width;
+
     // 保存色彩值
     QColor bg_color;
     QColor font_color;

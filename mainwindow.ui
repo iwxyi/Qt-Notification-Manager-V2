@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>无按钮通知</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>按钮通知1</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
@@ -50,7 +50,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>按钮通知2</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>120</y>
+      <width>80</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>按钮通知3</string>
     </property>
    </widget>
   </widget>
