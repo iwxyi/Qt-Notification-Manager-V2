@@ -59,11 +59,17 @@ void TipBox::addCard(TipCard* card)
     card->show();
 
     // 关联信号槽
-    connect(card, &TipCard::signalButton1Clicked, [=](QString s){
-        emit signalBtnClicked(s);
+    connect(card, &TipCard::signalCardClicked, [=](NotificationEntry n){
+        emit signalCardClicked(n.click(0));
     });
-    connect(card, &TipCard::signalButton2Clicked, [=](QString s){
-        emit signalBtnClicked(s);
+    connect(card, &TipCard::signalButton1Clicked, [=](NotificationEntry n){
+        emit signalBtnClicked(n.click(1));
+    });
+    connect(card, &TipCard::signalButton2Clicked, [=](NotificationEntry n){
+        emit signalBtnClicked(n.click(2));
+    });
+    connect(card, &TipCard::signalButton3Clicked, [=](NotificationEntry n){
+        emit signalBtnClicked(n.click(3));
     });
 
 

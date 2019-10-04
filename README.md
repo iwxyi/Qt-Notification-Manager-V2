@@ -8,3 +8,29 @@ Qt通知控件
 另外支持卡片本身、附加三个按钮的点击事件
 
 ![picture](picture.gif)
+
+
+
+## 部署
+
+开发环境：Qt13.1（理论上相近版本亦可）
+
+## 用法
+
+初始化
+
+```C++
+TipBox* tip_box = new TipBox(this);
+```
+
+添加通知
+
+```C++
+NotificationEntry noti;
+noti.key = "key";
+noti.title = "title";
+noti.content = "content1";
+noti.btn1 = "btn1";
+tip_box->createTipCard(noti);
+```
+

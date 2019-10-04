@@ -37,9 +37,9 @@ private:
     void addCard(TipCard *card);
 
 signals:
-    void signalCardClosed(QString key);
-    void signalCardClicked(QString cmd);
-    void signalBtnClicked(QString cmd);
+    void signalCardClosed(NotificationEntry noti);
+    void signalCardClicked(NotificationEntry noti);
+    void signalBtnClicked(NotificationEntry noti);
 
 public slots:
     void slotCardClosed(TipCard* card);

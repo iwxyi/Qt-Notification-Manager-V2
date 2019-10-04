@@ -7,7 +7,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    tip_widget = new TipBox(this);
+    tip_box = new TipBox(this);
+    connect(tip_box, &TipBox::signalCardClicked, [=](NotificationEntry n){
+        qDebug() << n.toString();
+    });
+    connect(tip_box, &TipBox::signalBtnClicked, [=](NotificationEntry n){
+        qDebug() << n.toString();
+    });
 
     QScreen* screen = QApplication::screenAt(QCursor::pos());
     QRect rect = screen->availableGeometry();
@@ -23,7 +29,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event);
 
-    tip_widget->adjustPosition();
+    tip_box->adjustPosition();
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -32,7 +38,7 @@ void MainWindow::on_pushButton_clicked()
     noti.key = "key";
     noti.title = "title";
     noti.content = "content1\ncontent2\ncontent3";
-    tip_widget->createTipCard(noti);
+    tip_box->createTipCard(noti);
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -42,7 +48,7 @@ void MainWindow::on_pushButton_2_clicked()
     noti.title = "title";
     noti.content = "content1\ncontent2\ncontent3";
     noti.btn1 = "btn1";
-    tip_widget->createTipCard(noti);
+    tip_box->createTipCard(noti);
 }
 
 void MainWindow::on_pushButton_3_clicked()
@@ -50,10 +56,10 @@ void MainWindow::on_pushButton_3_clicked()
     NotificationEntry noti;
     noti.key = "key";
     noti.title = "title";
-    noti.content = "content1\ncontent2\ncontent3";
+    noti.content = "content1";
     noti.btn1 = "btn1";
     noti.btn2 = "btn2";
-    tip_widget->createTipCard(noti);
+    tip_box->createTipCard(noti);
 }
 
 void MainWindow::on_pushButton_4_clicked()
@@ -61,9 +67,9 @@ void MainWindow::on_pushButton_4_clicked()
     NotificationEntry noti;
     noti.key = "key";
     noti.title = "title";
-    noti.content = "content1\ncontent2\ncontent3";
+    noti.content = "content1\ncontent2";
     noti.btn1 = "btn1";
     noti.btn2 = "btn2";
     noti.btn3 = "btn3";
-    tip_widget->createTipCard(noti);
+    tip_box->createTipCard(noti);
 }

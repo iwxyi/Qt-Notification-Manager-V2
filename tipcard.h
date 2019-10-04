@@ -62,10 +62,10 @@ private:
 
 signals:
     void signalClosed(TipCard* card);
-    void signalCardClicked(QString cmd);
-    void signalButton1Clicked(QString cmd);
-    void signalButton2Clicked(QString cmd);
-    void signalButton3Clicked(QString cmd);
+    void signalCardClicked(NotificationEntry noti);
+    void signalButton1Clicked(NotificationEntry noti);
+    void signalButton2Clicked(NotificationEntry noti);
+    void signalButton3Clicked(NotificationEntry noti);
 
 public slots:
     void slotClosed();
