@@ -20,7 +20,13 @@ Qt通知控件
 初始化
 
 ```C++
-TipBox* tip_box = new TipBox(this);
+tip_box = new TipBox(this);
+connect(tip_box, &TipBox::signalCardClicked, [=](NotificationEntry n){
+    qDebug() << n.toString();
+});
+connect(tip_box, &TipBox::signalBtnClicked, [=](NotificationEntry n){
+    qDebug() << n.toString();
+});
 ```
 
 添加通知
@@ -32,5 +38,14 @@ noti.title = "title";
 noti.content = "content1";
 noti.btn1 = "btn1";
 tip_box->createTipCard(noti);
+```
+
+自动调整大小
+
+```C++
+void MainWindow::resizeEvent(QResizeEvent*)
+{
+    tip_box->adjustPosition();
+}
 ```
 

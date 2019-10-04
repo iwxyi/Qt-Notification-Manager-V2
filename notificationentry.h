@@ -8,7 +8,11 @@ struct NotificationEntry
 public:
     NotificationEntry() : time(5000), click_hide(false), click_at(CAB_CARD)
     {
+    }
 
+    NotificationEntry(QString k, QString t, QString c) : NotificationEntry()
+    {
+        setInfo(k, t, c);
     }
 
     enum SuggestButton {
@@ -31,6 +35,31 @@ public:
         this->key = key;
         this->title = title;
         this->content = content;
+    }
+
+    void setBtn(int i, QString btn, QString cmd)
+    {
+        if (i == 1)
+        {
+            btn1 = btn;
+            cmd1 = cmd;
+        }
+        if (i == 2)
+        {
+            btn2 = btn;
+            cmd2 = cmd;
+        }
+        if (i == 3)
+        {
+            btn3 = btn;
+            cmd3 = cmd;
+        }
+    }
+
+    void addFilter(QString f, QString v)
+    {
+        filters << f;
+        values << v;
     }
 
     NotificationEntry click(int i)
