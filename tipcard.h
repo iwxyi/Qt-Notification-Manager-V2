@@ -65,6 +65,7 @@ signals:
     void signalCardClicked(QString cmd);
     void signalButton1Clicked(QString cmd);
     void signalButton2Clicked(QString cmd);
+    void signalButton3Clicked(QString cmd);
 
 public slots:
     void slotClosed();
@@ -76,6 +77,7 @@ private:
     QLabel* content_label;
     InteractiveButtonBase* operator1_button;
     InteractiveButtonBase* operator2_button;
+    InteractiveButtonBase* operator3_button;
     InteractiveButtonBase* close_button;
     QHBoxLayout* btn_layout;
     QTimer* close_timer;

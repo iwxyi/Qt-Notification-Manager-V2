@@ -12,6 +12,7 @@ TipCard::TipCard(QWidget *parent, NotificationEntry noti)
     close_button = new InteractiveButtonBase(QIcon(":/icons/hide_right"), this);
     operator1_button = nullptr;
     operator2_button = nullptr;
+    operator3_button = nullptr;
 
     // 初始化布局
     QHBoxLayout* margin_hlayout = new QHBoxLayout(this);
@@ -59,7 +60,16 @@ TipCard::TipCard(QWidget *parent, NotificationEntry noti)
     {
         btn_layout->addWidget(operator2_button = new InteractiveButtonBase(noti.btn2, this));
         connect(operator2_button, &InteractiveButtonBase::clicked, [=]{
-            emit signalButton1Clicked(noti.cmd2);
+            emit signalButton2Clicked(noti.cmd2);
+        });
+    }
+
+    // 添加按钮3
+    if (!noti.btn3.isEmpty())
+    {
+        btn_layout->addWidget(operator3_button = new InteractiveButtonBase(noti.btn3, this));
+        connect(operator3_button, &InteractiveButtonBase::clicked, [=]{
+            emit signalButton3Clicked(noti.cmd3);
         });
     }
 
@@ -131,6 +141,8 @@ void TipCard::setBtnColor(QColor c)
         operator1_button->setTextColor(c);
     if (operator2_button != nullptr)
         operator2_button->setTextColor(c);
+    if (operator3_button != nullptr)
+        operator3_button->setTextColor(c);
 }
 
 void TipCard::enterEvent(QEvent *event)

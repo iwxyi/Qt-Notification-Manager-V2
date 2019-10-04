@@ -51,5 +51,6 @@ void MainWindow::on_pushButton_3_clicked()
     noti.content = "content1\ncontent2\ncontent3";
     noti.btn1 = "btn1";
     noti.btn2 = "btn2";
+    noti.btn3 = "btn3";
     tip_widget->createTipCard(noti);
 }

@@ -23,11 +23,13 @@ public:
     QString content;
     QString desc;
     QString btn1;
-    QString btn2;
     int time;
     bool click_hide;
+    QString btn2;
+    QString btn3;
     QString cmd1;
     QString cmd2;
+    QString cmd3;
     QStringList filters;
     QStringList values;
 };
