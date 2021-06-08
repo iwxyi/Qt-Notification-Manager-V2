@@ -18,7 +18,7 @@ public:
     }
 
     enum SuggestButton {
-        SB_NONE,
+        SB_NULL,
         SB_FIR,
         SB_SEC,
         SB_ALL

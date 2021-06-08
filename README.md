@@ -56,7 +56,12 @@ noti->setBtn(1, "btn1", "cmd1"); // 全局信号可接收
 noti->setBtn(2, "btn2", "cmd2");
 tip_box->createTipCard(noti);
 
-connect()
+connect(noti, &NotificationEntry::signalCardClicked, [=]{
+    qDebug() << "通知被点击";
+});
+connect(noti, &NotificationEntry::signalBtnClicked, [=](int x){
+    qDebug() << "按钮被点击" << x;
+});
 ```
 
 
