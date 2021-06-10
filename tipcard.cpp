@@ -4,6 +4,7 @@ TipCard::TipCard(QWidget *parent, NotificationEntry *noti)
     : ThreeDimenButton(parent), noti(noti)
 {
     setBgColor(Qt::yellow);
+    setCursor(Qt::PointingHandCursor);
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     // 初始化控件
